@@ -5,7 +5,11 @@ code generator by nodejs
 ## Usage with global install
 
 ```bash
-npm install -g ngenerator
+// global install
+npm i -g @easytools/ngenerator
+
+// uninstall
+npm uninstall @easytools/ngenerator
 
 // create vue single file component
 gen create vue <file_name>

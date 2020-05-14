@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
+const fs = require("fs");
+const path = require("path");
 const { program } = require("commander");
 const chalk = require("chalk");
 const ora = require("ora");
 const spinnerstyle = require("../lib/spinners.json");
-const fs = require("fs");
 const nunjucks = require("nunjucks");
 
 const spinner = ora({
@@ -13,7 +14,8 @@ const spinner = ora({
 });
 
 const currentPath = process.cwd();
-const packageJSON = require(`${currentPath}/package.json`);
+const pkgPath = path.resolve(__dirname, "../");
+const packageJSON = require(`${pkgPath}/package.json`);
 
 program
   .version(packageJSON.version, "-v, --version")
@@ -41,7 +43,7 @@ program
   .command("create <template_file> [file_name...]")
   .description("create code file with template file")
   .action((templateFile, destFiles) => {
-    let tpls = fs.readdirSync(`${currentPath}/template`);
+    let tpls = fs.readdirSync(`${pkgPath}/template`);
     tpls = tpls.map((item) => item.split(".")[0]);
     if (tpls.indexOf(templateFile) === -1) {
       console.log(chalk.red("no matched template file!"));
@@ -50,14 +52,14 @@ program
 
     spinner.start("Generating, please wait......");
     const tpl = fs
-      .readFileSync(`${currentPath}/template/${templateFile}.tpl`)
+      .readFileSync(`${pkgPath}/template/${templateFile}.tpl`)
       .toString();
 
     if (destFiles.length < 1) {
       destFiles.push("Example");
     }
-    let outputPath = `${currentPath}/output`;
-    if (!fs.existsSync(outputPath)) {
+    let outputPath = `${pkgPath}/output`;
+    if (currentPath !== pkgPath) {
       outputPath = currentPath;
     }
 
