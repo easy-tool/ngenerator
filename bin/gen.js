@@ -7,6 +7,11 @@ const spinnerstyle = require("../lib/spinners.json");
 const fs = require("fs");
 const nunjucks = require("nunjucks");
 
+const spinner = ora({
+  text: chalk.blue("generate template begin"),
+  spinner: spinnerstyle.dots,
+});
+
 const currentPath = process.cwd();
 const packageJSON = require(`${currentPath}/package.json`);
 
@@ -36,49 +41,39 @@ program
   .command("create <template_file> [file_name...]")
   .description("create code file with template file")
   .action((templateFile, destFiles) => {
-    // console.log("create command called templateFile: ", templateFile);
-    // console.log("create command called destFiles: ", destFiles);
-
     let tpls = fs.readdirSync(`${currentPath}/template`);
     tpls = tpls.map((item) => item.split(".")[0]);
-    // template is not exist
     if (tpls.indexOf(templateFile) === -1) {
       console.log(chalk.red("no matched template file!"));
       return;
     }
 
-    // console.log(chalk.green("matched template file"));
-    // read tpl
+    spinner.start("Generating, please wait......");
     const tpl = fs
       .readFileSync(`${currentPath}/template/${templateFile}.tpl`)
       .toString();
 
-    // console.log("tpl: ", tpl);
     if (destFiles.length < 1) {
       destFiles.push("Example");
     }
+    let outputPath = `${currentPath}/output`;
+    if (!fs.existsSync(outputPath)) {
+      outputPath = currentPath;
+    }
+
     let data = { name: "" };
-    destFiles.forEach((item) => {
+    destFiles.forEach((item, index) => {
       data.name = item;
-      // tpl compile
       const compiledData = nunjucks.renderString(tpl, data);
-      // console.log("compiledData: ", compiledData);
-      // write file
-      fs.writeFileSync(
-        `${currentPath}/output/${item}.${templateFile}`,
-        compiledData
-      );
+      fs.writeFileSync(`${outputPath}/${item}.${templateFile}`, compiledData);
+      if (index === destFiles.length - 1) {
+        spinner.succeed(`Generated successfully!`);
+      }
     });
   });
 
 program.parse(process.argv);
 
 (function help() {
-  // console.log("program args: ", program.args);
   if (program.args.length < 1) return program.help();
 })();
-
-const spinner = ora({
-  text: chalk.blue("generate template begin"),
-  spinner: spinnerstyle.dots,
-});

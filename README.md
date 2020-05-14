@@ -10,6 +10,9 @@ npm install -g ngenerator
 // create vue single file component
 gen create vue <file_name>
 
+// create more vue single file component
+gen create vue <file_name> <file_name>
+
 // create react component
 gen create react <file_name>
 
@@ -22,6 +25,9 @@ gen create <template_name> <file_name>
 ```bash
 // create vue single file component
 npx gen create vue <file_name>
+
+// create more vue single file component
+npx gen create vue <file_name> <file_name>
 
 // create react component
 npx gen create react <file_name>
