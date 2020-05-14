@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: Hello,
+  name: World,
   props: {
   },
   data () {

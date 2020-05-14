@@ -4,6 +4,8 @@ const { program } = require("commander");
 const chalk = require("chalk");
 const ora = require("ora");
 const spinnerstyle = require("../lib/spinners.json");
+const fs = require("fs");
+const nunjucks = require("nunjucks");
 
 const currentPath = process.cwd();
 const packageJSON = require(`${currentPath}/package.json`);
@@ -34,8 +36,39 @@ program
   .command("create <template_file> [file_name...]")
   .description("create code file with template file")
   .action((templateFile, destFiles) => {
-    console.log("create command called templateFile: ", templateFile);
-    console.log("create command called destFiles: ", destFiles);
+    // console.log("create command called templateFile: ", templateFile);
+    // console.log("create command called destFiles: ", destFiles);
+
+    let tpls = fs.readdirSync(`${currentPath}/template`);
+    tpls = tpls.map((item) => item.split(".")[0]);
+    // template is not exist
+    if (tpls.indexOf(templateFile) === -1) {
+      console.log(chalk.red("no matched template file!"));
+      return;
+    }
+
+    // console.log(chalk.green("matched template file"));
+    // read tpl
+    const tpl = fs
+      .readFileSync(`${currentPath}/template/${templateFile}.tpl`)
+      .toString();
+
+    // console.log("tpl: ", tpl);
+    if (destFiles.length < 1) {
+      destFiles.push("Example");
+    }
+    let data = { name: "" };
+    destFiles.forEach((item) => {
+      data.name = item;
+      // tpl compile
+      const compiledData = nunjucks.renderString(tpl, data);
+      // console.log("compiledData: ", compiledData);
+      // write file
+      fs.writeFileSync(
+        `${currentPath}/output/${item}.${templateFile}`,
+        compiledData
+      );
+    });
   });
 
 program.parse(process.argv);
