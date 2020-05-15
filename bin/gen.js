@@ -69,7 +69,7 @@ program
       const compiledData = nunjucks.renderString(tpl, data);
       fs.writeFileSync(`${outputPath}/${item}.${templateFile}`, compiledData);
       if (index === destFiles.length - 1) {
-        spinner.succeed(`Generated successfully!`);
+        spinner.succeed("Generated successfully!");
       }
     });
   });
