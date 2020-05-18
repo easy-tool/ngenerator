@@ -7,7 +7,7 @@
     "gen": "./bin/gen.js"
   },
   "scripts": {
-    "test": "node ./bin/gen.js create vue Hello"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -31,13 +31,14 @@
   "devDependencies": {
     "eslint": "^7.0.0",
     "husky": "^4.2.5",
+    "jest": "^26.0.1",
     "lint-staged": "^10.2.2",
     "prettier": "^2.0.5",
     "prettier-eslint": "^9.0.1",
     "prettier-eslint-cli": "^5.0.0"
   },
   "engines": {
-    "node": ">= 8"
+    "node": ">= 12"
   },
   "husky": {
     "hooks": {
