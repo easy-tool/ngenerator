@@ -16,8 +16,8 @@
   "keywords": [
     "ngenerator"
   ],
-  "author": "SeanBurt",
-  "license": "ISC",
+  "author": "Sean Burt",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/easy-tool/ngenerator/issues"
   },
