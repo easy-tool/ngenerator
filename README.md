@@ -42,6 +42,13 @@ npx gen create react <file_name>
 npx gen create <template_name> <file_name>
 ```
 
+## Roadmap
+
+- [x] Generate code with built-in template
+- [ ] Generate code with custom template
+- [ ] Generate Component
+- [ ] Generate Project
+
 ## Join Us
 
 Welcome to you, You can join us in the following ways :smiley:
