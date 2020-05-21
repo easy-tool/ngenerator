@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "declaration": true,
+    "noUnusedLocals": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "module": "commonjs",
+    "lib": ["ESNext"]
+  },
+  "include": ["./src", "./lib"]
+}

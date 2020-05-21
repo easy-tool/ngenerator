@@ -3,11 +3,13 @@
   "version": "0.0.4",
   "description": "code generator by nodejs",
   "main": "index.js",
+  "types": "dist/index.d.ts",
   "bin": {
     "gen": "./bin/gen.js"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "rm -rf dist && tsc"
   },
   "repository": {
     "type": "git",
