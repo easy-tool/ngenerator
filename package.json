@@ -1,6 +1,6 @@
 {
   "name": "@easytools/ngenerator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "code generator by nodejs",
   "main": "index.js",
   "bin": {
